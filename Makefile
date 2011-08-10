@@ -12,7 +12,7 @@ DEBUG = 0
 VRUIDIR = /opt/local/Vrui-1.0
 
 # Install directory
-INSTALLDIR = /opt/local
+INSTALLDIR = /opt/local/ATR-Vessel
 
 # List of unsupported available modules:
 UNSUPPORTED_MODULE_NAMES = AnalyzeFile \
@@ -59,15 +59,15 @@ MODULE_NAMES = $(UNSUPPORTED_MODULE_NAMES) \
 USE_SHADERS = 0
 
 # Version number for installation subdirectories.
-VERSION = 0.0
+VERSION =
 
 # Set up destination directories for compilation products:
 OBJDIRBASE = object
 BINDIRBASE = bin
-MODULEDIRBASE = $(TARGET)-$(VERSION)
+MODULEDIRBASE = $(TARGET)
 
 # Set resource directory:
-RESOURCEDIR = share/$(TARGET)-$(VERSION)
+RESOURCEDIR = share/$(TARGET)
 
 # Set up additional flags for the C++ compiler:
 CFLAGS = 
@@ -130,7 +130,7 @@ $(call PLUGINNAME,%): $(OBJDIR)/source/Concrete/%.o
 	@echo Linking $@...
 	@g++ $(VRUI_PLUGINLINKFLAGS) -o $@ $^
 
-# Rule to build all VirtualATR components:
+# Rule to build all ATR-Vessel components:
 MODULES = $(MODULE_NAMES:%=$(call PLUGINNAME,%))
 ALL = $(BINDIR)/$(TARGET) \
       $(MODULES)
