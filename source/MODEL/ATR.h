@@ -38,6 +38,7 @@ using namespace dtUtil;
 
 namespace dtCore {
 class Environment;
+class InfiniteLight;
 class Object;
 }
 class dMass;
@@ -66,6 +67,7 @@ public:
 	virtual void display(GLContextData& contextData) const;
 	void frame(void);
 	virtual void initContext(GLContextData& contextData) const;
+	void toggleLight(void);
 	void toggleVessel(void);
 	void toggleClear_Vessel(void);
 	void toggleWireframe(void);
@@ -118,6 +120,7 @@ public:
 	RefPtr<Object> oscc_110_85_85_85;
 	RefPtr<Object> oscc_120_85_85_85;
 	RefPtr<Object> wandinstrument;
+	RefPtr<InfiniteLight> globalInfinite;
 private:
 	void createEnvironment(void);
 	void createUser(dMass & mass);

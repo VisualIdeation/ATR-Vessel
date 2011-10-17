@@ -121,6 +121,8 @@ private:
 	int numberOfClippingPlanes;
 	GLMotif::PopupWindow* renderDialog;
 	GLMotif::PopupWindow* osccDialog;
+	GLMotif::ToggleButton * lightToggle;
+	GLMotif::ToggleButton * lightToggleRD;
 	GLMotif::ToggleButton * showVesselToggle;
 	GLMotif::ToggleButton * showVesselToggleRD;
 	GLMotif::ToggleButton * showClear_VesselToggle;

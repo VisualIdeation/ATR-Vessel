@@ -14,8 +14,9 @@
 #include <SYNC/Guard.h>
 
 /* Delta3D headers */
-#include <dtCore/object.h>
 #include <dtCore/camera.h>
+#include <dtCore/infinitelight.h>
+#include <dtCore/object.h>
 #include <dtCore/scene.h>
 #include <dtCore/system.h>
 #include <dtCore/environment.h>
@@ -91,6 +92,10 @@ void ATR::addObjects(void) {
 	GetScene()->AddDrawable(vessel.get());
 	GetScene()->AddDrawable(clear_vessel.get());
 	GetScene()->AddDrawable(environment.get());
+	// create an infinite light
+	globalInfinite = new InfiniteLight(4, "GlobalInfiniteLight");
+	GetScene()->AddDrawable(globalInfinite.get());
+	globalInfinite->SetEnabled(true);
 
 	/* 
 	 * oscc_#: # represents angle at which cylinders are rotated 
@@ -343,6 +348,10 @@ void ATR::initContext(GLContextData & glContextData) const {
 
 	glContextData.addDataItem(this, dataItem);
 } // end initContext()
+
+void ATR::toggleLight(void) {
+	globalInfinite->SetEnabled(!globalInfinite->GetEnabled());
+}
 
 void ATR::toggleVessel(void) {
 	vessel.get()->DeltaDrawable::SetActive(

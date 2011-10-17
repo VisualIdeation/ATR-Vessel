@@ -248,10 +248,8 @@ VirtualATR::VirtualATR(int& argc, char**& argv, char**& appDefaults) :
 	/* Load a visualization module and a data set: */
 	try
 		{
-		std::cout << "Before\n";
 		/* Load the appropriate visualization module: */
 		module=moduleManager.loadClass(moduleClassName.c_str());
-		std::cout << "After\n";
 
 		/* Load a data set: */
 		Misc::Timer t;
@@ -695,6 +693,15 @@ GLMotif::PopupWindow * VirtualATR::createRenderDialog(void) {
 	wireframeToggleRD->getValueChangedCallbacks().add(this,
 			&VirtualATR::menuToggleSelectCallback);
 
+	lightToggleRD = new GLMotif::ToggleButton("lightToggle", rowColumn,
+			"Light");
+	lightToggleRD->setBorderWidth(0.0f);
+	lightToggleRD->setMarginWidth(0.0f);
+	lightToggleRD->setHAlignment(GLFont::Left);
+	lightToggleRD->setToggle(true);
+	lightToggleRD->getValueChangedCallbacks().add(this,
+			&VirtualATR::menuToggleSelectCallback);
+
 	rowColumn->manageChild();
 
 	return renderDialogPopup;
@@ -1056,6 +1063,13 @@ GLMotif::Popup * VirtualATR::createRenderTogglesMenu(void) {
 			renderTogglesMenu, "Wireframe");
 	wireframeToggle->setToggle(false);
 	wireframeToggle->getValueChangedCallbacks().add(this,
+			&VirtualATR::menuToggleSelectCallback);
+
+	/* Create a toggle button to render Light: */
+	lightToggle = new GLMotif::ToggleButton("lightToggle",
+			renderTogglesMenu, "Light");
+	lightToggle->setToggle(true);
+	lightToggle->getValueChangedCallbacks().add(this,
 			&VirtualATR::menuToggleSelectCallback);
 
 	/* Calculate the submenu's proper layout: */
@@ -1679,6 +1693,10 @@ void VirtualATR::menuToggleSelectCallback(
 		atr->toggleWireframe();
 		wireframeToggle->setToggle(callbackData->set);
 		wireframeToggleRD->setToggle(callbackData->set);
+	} else if (strcmp(callbackData->toggle->getName(), "lightToggle") == 0) {
+		atr->toggleLight();
+		lightToggle->setToggle(callbackData->set);
+		lightToggleRD->setToggle(callbackData->set);
 	} else if (strcmp(callbackData->toggle->getName(), "showRenderDialogToggle")
 			== 0) {
 		if (callbackData->set) {
